@@ -290,6 +290,6 @@ async fn main() -> Result<()> {
         println!("\nNot able to find values in USD:");
         println!("{}", unknown_asset_table);
     }
-    print!("\nTime took: {:?} seconds", start.elapsed());
+    println!("\nTime took: {:?} seconds", start.elapsed());
     Ok(())
 }
