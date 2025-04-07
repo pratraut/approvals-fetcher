@@ -155,7 +155,13 @@ async fn main() -> Result<()> {
         while start <= end {
             let local_end = u64::min(start + ALLOWED_BLOCK_RANGE, end);
             filter = filter.from_block(start).to_block(local_end);
-            logs.extend(provider.get_logs(&filter).await?);
+            match provider.get_logs(&filter).await {
+                Ok(vec_logs) => logs.extend(vec_logs),
+                Err(err) => {
+                    eprintln!("Error: {:?}", err);
+                    panic!("{}", format!("Error: {:?}", err));
+                },
+            }
             start = local_end + 1;
         }
         logs
